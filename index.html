@@ -3,32 +3,41 @@ import socketserver
 import webbrowser
 import os
 
-# Código do Site Otimizado
+# SITE COM ANIMAÇÃO 3D INCRÍVEL
 site = """
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Otimizado</title>
+    <title>Segredos Ocultos JG - 3D</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --cor-principal: #6a0dad; /* Roxo */
+            --cor-secundaria: #ffd700; /* Dourado */
+            --cor-fundo: #121212; /* Preto escuro */
+            --cor-texto: #f0f0f0; /* Branco suave */
         }
 
         body {
-            background-color: #f4f4f4;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
             line-height: 1.6;
         }
 
         header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
+            background: linear-gradient(135deg, var(--cor-principal), #4b0082);
+            color: var(--cor-secundaria);
             padding: 2rem;
             text-align: center;
+            border-bottom: 3px solid var(--cor-secundaria);
         }
 
         .container {
@@ -38,26 +47,27 @@ site = """
         }
 
         .card {
-            background: white;
+            background: #1e1e1e;
             padding: 1.5rem;
             margin: 1rem 0;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 1px solid var(--cor-principal);
+            box-shadow: 0 0 15px rgba(106, 13, 173, 0.5);
             transition: transform 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
         }
 
-        /* ===== ESTILO DAS IMAGENS OTIMIZADAS ===== */
         .img-responsive {
             width: 100%;
             height: auto;
             border-radius: 8px;
-            /* Carregamento lento para não travar */
             loading: lazy;
             display: block;
+            border: 2px solid var(--cor-secundaria);
         }
 
         .galeria {
@@ -68,87 +78,178 @@ site = """
         }
 
         footer {
-            background: #333;
-            color: white;
+            background: #000;
+            color: var(--cor-secundaria);
             text-align: center;
             padding: 1rem;
             margin-top: 2rem;
+            border-top: 2px solid var(--cor-principal);
         }
 
-        /* Deixa tudo super rápido e limpo */
-        img {
-            max-width: 100%;
+        #botao-magico {
+            background: var(--cor-principal);
+            color: var(--cor-secundaria);
+            border: 2px solid var(--cor-secundaria);
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        #botao-magico:hover {
+            background: var(--cor-secundaria);
+            color: var(--cor-principal);
+            transform: scale(1.05);
+        }
+
+        /* ===== ESTILO DA AREA 3D ===== */
+        #canvas-container {
+            width: 100%;
+            height: 400px;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--cor-secundaria);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
         }
     </style>
+
+    <!-- CARREGA A BIBLIOTECA 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
     <header>
-        <h1>🚀 Site Super Otimizado</h1>
-        <p>Criado para carregar rápido e ter imagens nítidas</p>
+        <h1>🔮 Segredos Ocultos JG</h1>
+        <p>🌐 Tecnologia, Mistério e AGORA 3D! ✨</p>
     </header>
 
     <div class="container">
         <div class="card">
-            <h2>Por que esse site é rápido?</h2>
-            <p>✅ Código limpo e enxuto</p>
-            <p>✅ Imagens com carregamento inteligente</p>
-            <p>✅ Design que se adapta a qualquer tela</p>
-            <p>✅ Sem arquivos desnecessários</p>
+            <h2>✨ Bem-vindo ao futuro</h2>
+            <p>✅ Site totalmente personalizado</p>
+            <p>✅ Com efeitos e animações</p>
+            <p>✅ JavaScript funcionando</p>
+            <p>✅ <strong>AGORA COM OBJETOS 3D GIRANDO!</strong> 🎮</p>
+        </div>
+
+        <!-- ===== AQUI FICA A ANIMAÇÃO 3D ===== -->
+        <div class="card">
+            <h3>🎮 Mundo 3D Interativo</h3>
+            <div id="canvas-container"></div>
+            <p style="text-align:center; margin-top:15px; color: #ffd700;">Olha o cubo mágico girando! 🔮</p>
         </div>
 
         <div class="card">
-            <h3>🖼️ Exemplo de Imagem Otimizada</h3>
-            <img 
-                src="https://images.unsplash.com/photo-1517694712202-15dd5314517c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
-                alt="Paisagem bonita" 
-                class="img-responsive"
-            >
-            <p><small>Imagem de alta qualidade mas comprimida para carregar rápido.</small></p>
+            <h3>🤯 Experimente o Botão Mágico</h3>
+            <button id="botao-magico">Clica Aqui! 🎇</button>
+            <p id="mensagem"></p>
         </div>
 
-        <div class="galeria">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1507720708251-82907d47d638?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Tech" class="img-responsive">
-                <h4>Rápido</h4>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Codigo" class="img-responsive">
-                <h4>Profissional</h4>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1488590834511-062cc7c1f98c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Design" class="img-responsive">
-                <h4>Bonito</h4>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>Feito com Python & HTML5 © 2025</p>
+        <p>Feito por JG © 2025 - Tecnologia de outro mundo 🚀</p>
     </footer>
+
+    <!-- ===== CÓDIGO DO 3D ===== -->
+    <script>
+        // Cria a cena
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, document.getElementById('canvas-container').offsetWidth / 400, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(document.getElementById('canvas-container').offsetWidth, 400);
+        renderer.setClearColor(0x000000, 0); // Fundo transparente
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Cria o cubo ROXO
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0x800080, // Roxo
+            metalness: 0.7,
+            roughness: 0.2,
+            emissive: 0x4b0082,
+            emissiveIntensity: 0.2
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Adiciona luzes para brilhar
+        const light1 = new THREE.PointLight(0xffffff, 1, 100);
+        light1.position.set(10, 10, 10);
+        scene.add(light1);
+
+        const light2 = new THREE.PointLight(0x800080, 0.8, 100);
+        light2.position.set(-10, -10, -10);
+        scene.add(light2);
+
+        scene.add(new THREE.AmbientLight(0x404040));
+
+        camera.position.z = 5;
+
+        // Função ANIMAR
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            cube.rotation.z += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Ajusta tamanho
+        window.addEventListener('resize', () => {
+            camera.aspect = document.getElementById('canvas-container').offsetWidth / 400;
+            camera.updateProjectionMatrix();
+            renderer.setSize(document.getElementById('canvas-container').offsetWidth, 400);
+        });
+    </script>
+
+    <!-- ===== CÓDIGO DO BOTÃO ===== -->
+    <script>
+        const botao = document.getElementById('botao-magico');
+        const mensagem = document.getElementById('mensagem');
+
+        const frases = [
+            "🔮 O segredo está na mente!",
+            "💻 Código é magia escrita em texto!",
+            "🚀 Você é o criador do seu futuro!",
+            "✨ 3D é a nova realidade!",
+            "👁️ Veja além do óbvio!"
+        ];
+
+        botao.addEventListener('click', function() {
+            const fraseAleatoria = frases[Math.floor(Math.random() * frases.length)];
+            mensagem.innerText = fraseAleatoria;
+            mensagem.style.color = "#ffd700";
+            mensagem.style.fontSize = "20px";
+            mensagem.style.marginTop = "15px";
+        });
+    </script>
 
 </body>
 </html>
 """
 
-# Salva o arquivo index.html
+# Salva o arquivo
 with open("index.html", "w", encoding="utf-8") as arquivo:
     arquivo.write(site)
 
-# Configura e abre o servidor
+# Abre o servidor
 PORT = 8000
 Handler = http.server.SimpleHTTPRequestHandler
 
 try:
     with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print("="*50)
-        print("🌐 SITE NO AR!")
+        print("="*60)
+        print("🌐 SITE 3D NO AR!")
         print(f"🔗 Acesse: http://localhost:{PORT}")
-        print("💡 Imagens otimizadas e performance máxima")
-        print("="*50)
-        print("📱 Abrindo no navegador...")
+        print("✨ Agora com Cubo Roxo Girando em 3D!")
+        print("="*60)
         webbrowser.open(f'http://localhost:{PORT}')
-        print("\n⏹️ Para parar, feche o app ou pressione Ctrl+C")
         httpd.serve_forever()
 except OSError:
-    print("⚠️ Porta em uso, feche o servidor anterior e tente novamente!")
+    print("⚠️ Feche o servidor anterior e tenta de novo!")
