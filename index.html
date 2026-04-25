@@ -1,16 +1,9 @@
-import http.server
-import socketserver
-import webbrowser
-import os
-
-# SITE COM ANIMAÇÃO 3D INCRÍVEL
-site = """
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segredos Ocultos JG - 3D</title>
+    <title>Segredos Ocultos JG - Site Oficial</title>
     <style>
         * {
             margin: 0;
@@ -33,7 +26,7 @@ site = """
         }
 
         header {
-            background: linear-gradient(135deg, var(--cor-principal), #4b0082);
+            background: linear-gradient(135deg, var(--cor-principal), #4b0825);
             color: var(--cor-secundaria);
             padding: 2rem;
             text-align: center;
@@ -47,7 +40,7 @@ site = """
         }
 
         .card {
-            background: #1e1e1e;
+            background: #1a1a1a;
             padding: 1.5rem;
             margin: 1rem 0;
             border-radius: 10px;
@@ -59,22 +52,6 @@ site = """
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-        }
-
-        .img-responsive {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            loading: lazy;
-            display: block;
-            border: 2px solid var(--cor-secundaria);
-        }
-
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
         }
 
         footer {
@@ -103,122 +80,50 @@ site = """
             color: var(--cor-principal);
             transform: scale(1.05);
         }
-
-        /* ===== ESTILO DA AREA 3D ===== */
-        #canvas-container {
-            width: 100%;
-            height: 400px;
-            margin: 20px auto;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid var(--cor-secundaria);
-            box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
-        }
     </style>
-
-    <!-- CARREGA A BIBLIOTECA 3D -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
     <header>
         <h1>🔮 Segredos Ocultos JG</h1>
-        <p>🌐 Tecnologia, Mistério e AGORA 3D! ✨</p>
+        <p>🌐 Site Oficial No Ar - Versão 2.0 ✨</p>
     </header>
 
     <div class="container">
         <div class="card">
-            <h2>✨ Bem-vindo ao futuro</h2>
-            <p>✅ Site totalmente personalizado</p>
-            <p>✅ Com efeitos e animações</p>
-            <p>✅ JavaScript funcionando</p>
-            <p>✅ <strong>AGORA COM OBJETOS 3D GIRANDO!</strong> 🎮</p>
-        </div>
-
-        <!-- ===== AQUI FICA A ANIMAÇÃO 3D ===== -->
-        <div class="card">
-            <h3>🎮 Mundo 3D Interativo</h3>
-            <div id="canvas-container"></div>
-            <p style="text-align:center; margin-top:15px; color: #ffd700;">Olha o cubo mágico girando! 🔮</p>
+            <h2>✅ Site Funcionando Perfeitamente!</h2>
+            <p>Olá visitante! Seu site está agora 100% online e acessível para todo mundo.</p>
+            <p>Em breve vamos colocar:</p>
+            <ul>
+                <li>🎮 Animações 3D Incríveis</li>
+                <li>💰 Sistema de Anúncios para Ganhar Dinheiro</li>
+                <li>🔥 Wallpapers e Downloads</li>
+                <li>🚀 Muito mais conteúdo!</li>
+            </ul>
         </div>
 
         <div class="card">
-            <h3>🤯 Experimente o Botão Mágico</h3>
-            <button id="botao-magico">Clica Aqui! 🎇</button>
+            <h3>🤯 Clica Aí pra Ver!</h3>
+            <button id="botao-magico">ATIVAR SISTEMA 🎇</button>
             <p id="mensagem"></p>
         </div>
 
     </div>
 
     <footer>
-        <p>Feito por JG © 2025 - Tecnologia de outro mundo 🚀</p>
+        <p>Feito por JG © 2025 - O Melhor Conteúdo da Web 🚀</p>
     </footer>
 
-    <!-- ===== CÓDIGO DO 3D ===== -->
-    <script>
-        // Cria a cena
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, document.getElementById('canvas-container').offsetWidth / 400, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        
-        renderer.setSize(document.getElementById('canvas-container').offsetWidth, 400);
-        renderer.setClearColor(0x000000, 0); // Fundo transparente
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
-
-        // Cria o cubo ROXO
-        const geometry = new THREE.BoxGeometry(2, 2, 2);
-        const material = new THREE.MeshStandardMaterial({ 
-            color: 0x800080, // Roxo
-            metalness: 0.7,
-            roughness: 0.2,
-            emissive: 0x4b0082,
-            emissiveIntensity: 0.2
-        });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
-
-        // Adiciona luzes para brilhar
-        const light1 = new THREE.PointLight(0xffffff, 1, 100);
-        light1.position.set(10, 10, 10);
-        scene.add(light1);
-
-        const light2 = new THREE.PointLight(0x800080, 0.8, 100);
-        light2.position.set(-10, -10, -10);
-        scene.add(light2);
-
-        scene.add(new THREE.AmbientLight(0x404040));
-
-        camera.position.z = 5;
-
-        // Função ANIMAR
-        function animate() {
-            requestAnimationFrame(animate);
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            cube.rotation.z += 0.005;
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Ajusta tamanho
-        window.addEventListener('resize', () => {
-            camera.aspect = document.getElementById('canvas-container').offsetWidth / 400;
-            camera.updateProjectionMatrix();
-            renderer.setSize(document.getElementById('canvas-container').offsetWidth, 400);
-        });
-    </script>
-
-    <!-- ===== CÓDIGO DO BOTÃO ===== -->
     <script>
         const botao = document.getElementById('botao-magico');
         const mensagem = document.getElementById('mensagem');
 
         const frases = [
-            "🔮 O segredo está na mente!",
-            "💻 Código é magia escrita em texto!",
-            "🚀 Você é o criador do seu futuro!",
-            "✨ 3D é a nova realidade!",
-            "👁️ Veja além do óbvio!"
+            "🔮 Sistema Ativado!",
+            "💻 Você está no melhor site!",
+            "🚀 Prepare-se para o futuro!",
+            "💰 Dinheiro vindo aí!",
+            "👁️ Segredos revelados!"
         ];
 
         botao.addEventListener('click', function() {
@@ -232,24 +137,3 @@ site = """
 
 </body>
 </html>
-"""
-
-# Salva o arquivo
-with open("index.html", "w", encoding="utf-8") as arquivo:
-    arquivo.write(site)
-
-# Abre o servidor
-PORT = 8000
-Handler = http.server.SimpleHTTPRequestHandler
-
-try:
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print("="*60)
-        print("🌐 SITE 3D NO AR!")
-        print(f"🔗 Acesse: http://localhost:{PORT}")
-        print("✨ Agora com Cubo Roxo Girando em 3D!")
-        print("="*60)
-        webbrowser.open(f'http://localhost:{PORT}')
-        httpd.serve_forever()
-except OSError:
-    print("⚠️ Feche o servidor anterior e tenta de novo!")
